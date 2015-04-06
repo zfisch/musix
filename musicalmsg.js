@@ -1,5 +1,5 @@
 //create object to store all key bindings
-var keyBindings = {};
+var hash = {};
 
 //configurations
 var keys = ['a', 'a#', 'ab', 'b', 'bb', 'c', 'c#', 'db', 'd', 'd#', 'eb', 'e', 'f', 'f#', 'gb', 'g', 'g#'];
@@ -28,15 +28,27 @@ var setScale = function(key){
   songScale = cMaj;
 }
 
-var hashKey = function(key){
-  Math.floor( Math.random() * Object.keys(songScale).length )
+var playSound = function(key){
+  console.log('playSound', key);
+  // songScale[key].play();
 }
+
+var hashKey = function(key){
+  if(!hash[key]){
+    var rand = Math.floor( Math.random() * Object.keys(songScale).length );
+    hash[key] = rand;
+  }
+  console.log('hashKey', hash);
+};
 
 //each key typed should refer to a sound
 $(document).keypress(function(e){
   var key = e.which;
-  if(!songScale){
-    setScale(key);
+  if(key<123 && key>96){
+    if(!songScale){
+      setScale(key);
+    }
+    hashKey(e.which);
+    playSound(hash[key]);
   }
-
 });

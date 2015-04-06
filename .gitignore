@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+_DS.store
 
 # Runtime data
 pids
